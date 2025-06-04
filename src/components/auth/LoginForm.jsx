@@ -18,6 +18,7 @@ const LoginForm = () => {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log("Form Data:", formData);
   };
 
   const togglePasswordVisibility = () => {
@@ -89,7 +90,7 @@ const LoginForm = () => {
           onChange={handleInputChange}
           required
         />
-        <button 
+        <button
           type="button"
           className="absolute right-3 top-3 text-gray-500 hover:text-[#7F56D9]"
           onClick={togglePasswordVisibility}

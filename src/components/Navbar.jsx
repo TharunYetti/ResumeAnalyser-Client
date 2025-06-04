@@ -17,93 +17,102 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation(); // Get current location/URL
-  const user = useSelector((state)=> state.user.user);
+  const user = useSelector((state) => state.user.user);
   let isAdmin = false;
-  if(user){
+  if (user) {
     isAdmin = user.role == "admin";
   }
 
-  const handleDispatch = ()=>{
+  const handleDispatch = () => {
     dispatch(resetResume());
     dispatch(logout());
     navigate("/");
-  }
+  };
 
   const handleLogout = () => {
     dispatch(resetResume());
     dispatch(logout());
-    toast.success("Logged out successfully!", {position:"bottom-right", duration:2000});
+    toast.success("Logged out successfully!", {
+      position: "bottom-right",
+      duration: 2000,
+    });
     navigate("/");
   };
-  useEffect(()=>{
-    const verifyToken = async () =>{
+  useEffect(() => {
+    const verifyToken = async () => {
       const token = Cookies.get("token");
       const response = await axios.get(`${API_URL}/user/verify-token`, {
-            headers: {
-              Authorization: `Bearer ${token}`, // Pass the token
-                "Content-Type": "multipart/form-data",
-            },
+        headers: {
+          Authorization: `Bearer ${token}`, // Pass the token
+          "Content-Type": "multipart/form-data",
+        },
       });
-      if(!response.data){
+      if (!response.data) {
         handleDispatch();
       }
     };
     verifyToken();
-  },[]);
+  }, []);
   // Function to check if the link is active
   const isActive = (path) => {
     return location.pathname === path;
   };
   // console.log(isAdmin);
   return (
-    <nav className="fixed top-0 left-0 w-full bg-gradient-to-b from-black/20 to-transparent backdrop-blur-md px-6 py-4 z-50">
-      <div className="flex justify-between items-center h-[80px]">
+    <nav className="fixed top-0 left-0   w-full h-[80px] backdrop-blur-md px-[40px]  z-50 justify-center items-center">
+      <div className="flex justify-between items-center  h-[80px] ">
         {/* Left - Logo */}
-        <div className="ml-2">
-          <img src="/images/Logo.png" alt="Logo" className="w-50" />
+        <div className="ml-[30px]">
+          <img
+            src="/images/Logo.png"
+            alt="Logo"
+            className="w-[182px] h-[52px]"
+          />
         </div>
 
         {/* Center - Navigation Links */}
-        <div className="hidden md:flex gap-4 justify-between px-30 rounded-[40px] py-4 w-[750px] text-[19px] font-medium shadow-lg">
+        <div className="hidden md:flex  justify-between px-30  rounded-[40px] h-[60px] w-[720px] text-[19px] border-3 border-[#256EFF] font-medium  items-center bg-white">
           <Link
             to="/"
             className={`${
-              isActive("/") ? "text-[#7F56D9] font-bold" : ""
-            } hover:text-[#7F56D9] cursor-pointer`}
+              isActive("/") ? "text-[#256EFF] font-bold" : ""
+            } hover:text-[#256EFF] cursor-pointer`}
           >
             Home
           </Link>
           <Link
             to="/analyser"
             className={`${
-              isActive("/analyser") ? "text-[#7F56D9] font-bold" : ""
-            } hover:text-[#7F56D9] cursor-pointer`}
+              isActive("/analyser") ? "text-[#256EFF] font-bold" : ""
+            } hover:text-[#256EFF] cursor-pointer`}
           >
             Analyser
           </Link>
           <Link
             to="/stats"
             className={`${
-              isActive("/stats") ? "text-[#7F56D9] font-bold" : ""
-            } hover:text-[#7F56D9] cursor-pointer`}
+              isActive("/stats") ? "text-[#256EFF] font-bold" : ""
+            } hover:text-[#256EFF] cursor-pointer`}
           >
             Stats
           </Link>
           <Link
             to="/about"
             className={`${
-              isActive("/about") ? "text-[#7F56D9] font-bold" : ""
-            } hover:text-[#7F56D9] cursor-pointer`}
+              isActive("/about") ? "text-[#256EFF] font-bold" : ""
+            } hover:text-[#256EFF] cursor-pointer`}
           >
             About
           </Link>
           {isAdmin && (
             <Link
-            to="/allResumes"
-            className={`${
-              isActive("/allResumes") ? "text-[#7F56D9] font-bold" : ""
-            } hover:text-[#7F56D9] cursor-pointer`}
-          >All Resumes</Link>
+              to="/allResumes"
+              className={`${
+                isActive("/allResumes") ? "text-[#256EFF] font-bold" : ""
+              } hover:text-[#256EFF] cursor-pointer`}
+            >
+              All Resumes
+            </Link>
           )}
         </div>
 
@@ -113,7 +122,7 @@ const Navbar = () => {
             <Link
               to="/profile"
               className={`${
-                isActive("/profile") ? "text-[#7F56D9] font-bold" : ""
+                isActive("/profile") ? "text-[#256EFF] font-bold" : ""
               } text-xl font-medium cursor-pointer`}
             >
               Profile
@@ -131,14 +140,14 @@ const Navbar = () => {
             <Link
               to="/login"
               className={`${
-                isActive("/login") ? "text-[#7F56D9] font-bold" : ""
+                isActive("/login") ? "text-[#256EFF] font-bold" : ""
               } text-xl font-medium cursor-pointer`}
             >
               Log in
             </Link>
             <Link
               to="/login"
-              className="text-xl font-medium text-white bg-[#7F56D9] py-3 px-5 rounded-xl cursor-pointer hover:bg-[#6B47C6]"
+              className="text-xl font-medium text-white bg-[#256EFF] py-3 px-5 rounded-xl cursor-pointer hover:bg-[#6B47C6]"
             >
               Sign up
             </Link>
@@ -162,7 +171,7 @@ const Navbar = () => {
         <Link
           to="/"
           className={`py-2 ${
-            isActive("/") ? "text-[#7F56D9] font-bold" : ""
+            isActive("/") ? "text-[#256EFF] font-bold" : ""
           } hover:text-[#7F56D9] cursor-pointer`}
         >
           Home
@@ -192,13 +201,15 @@ const Navbar = () => {
           About
         </Link>
         {isAdmin && (
-            <Link
+          <Link
             to="/allResumes"
             className={`${
               isActive("/allResumes") ? "text-[#7F56D9] font-bold" : ""
             } hover:text-[#7F56D9] cursor-pointer`}
-          >All Resumes</Link>
-          )}
+          >
+            All Resumes
+          </Link>
+        )}
 
         {isLoggedIn ? (
           <>

@@ -16,7 +16,10 @@ const SignupForm = () => {
   const [success, setSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const API_URL = import.meta.env.VITE_API_URL; // Replace with your backend URL
+
+  // ✅ Use .env value with fallback
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  console.log("🚀 API_URL:", API_URL);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,7 +40,6 @@ const SignupForm = () => {
 
     const { firstName, emailId, password, confirmPassword } = formData;
 
-    // Validation
     if (!firstName || !emailId || !password || !confirmPassword) {
       toast.error("Please fill all the fields");
       setLoading(false);
@@ -64,13 +66,18 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await axios.post(`${API_URL}/signup`, formData, {
+      const endpoint = `${API_URL}/signup`;
+      console.log("📡 POST Request to:", endpoint);
+      const response = await axios.post(endpoint, formData, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });
 
+      console.log("✅ Signup response:", response.data);
+
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", response.data.user);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
       toast.success("Sign Up Successful!", {
         duration: 2000,
         position: "bottom-right",
@@ -85,6 +92,7 @@ const SignupForm = () => {
         confirmPassword: "",
       });
     } catch (err) {
+      console.error("❌ Signup error:", err.response || err);
       toast.error(err.response?.data || "Something went wrong");
     } finally {
       setLoading(false);
@@ -148,7 +156,7 @@ const SignupForm = () => {
           onChange={handleInputChange}
           required
         />
-        <button 
+        <button
           type="button"
           className="absolute right-3 top-3 text-gray-500 hover:text-[#7F56D9]"
           onClick={togglePasswordVisibility}
@@ -168,7 +176,7 @@ const SignupForm = () => {
           onChange={handleInputChange}
           required
         />
-        <button 
+        <button
           type="button"
           className="absolute right-3 top-3 text-gray-500 hover:text-[#7F56D9]"
           onClick={toggleConfirmPasswordVisibility}
