@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Line } from "rc-progress";
-import GradientProgressBar from "../components/ProgressBar";
+import ProfileProgressBar from "../components/ProfileProgressBar";
 import {
   Button,
   CircularProgress,
@@ -109,9 +109,9 @@ const ProfilePage = () => {
             <div className="py-5 text-base sm:text-lg">Metrics</div>
 
             <div className="flex flex-col gap-5">
-              <GradientProgressBar value={lastTwoResumes[0].analysis.score} label={"ATS Score"} />
+              <ProfileProgressBar value={lastTwoResumes[0].analysis.score} label={"ATS Score"} />
               <hr color="gray" />
-              <GradientProgressBar value={lastTwoResumes[0].analysis.readabilityScore} label={"Readability "} />
+              <ProfileProgressBar value={lastTwoResumes[0].analysis.readabilityScore} label={"Readability "} />
               <hr color="gray" />
 
               <div className="text-base sm:text-lg">Suggested Jobs</div>
