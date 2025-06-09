@@ -1,16 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import About from "./pages/About"
 import AllResumes from "./pages/AllResumes";
 import AuthForm from "./components/auth/AuthForm";
 import Body from "./components/Body";
 import Home from "./pages/HomePage";
-import ProfilePage from "./pages/ProfilePage";
+import ProfilePage from "./components/ProfilePage";
+import ProtectedRoute from "./components/ProtectedRoute"
 import ResumeAnalysisResults from "./pages/ResumeAnalysisResults";
 import SignupForm from "./components/auth/SignupForm";
 import Stats from "./pages/Stats";
-import ProtectedRoute from "./components/ProtectedRoute"
-import About from "./pages/About"
-
 
 function App() {
   return (
