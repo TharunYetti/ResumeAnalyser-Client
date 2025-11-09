@@ -119,15 +119,6 @@ const Navbar = () => {
         {/* Right - Auth Buttons */}
         {isLoggedIn ? (
           <div className="hidden md:flex items-center gap-7">
-           // <Link
-           //   to="/profile"
-           //   className={`${
-           //     isActive("/profile") ? "text-[#256EFF] font-bold" : ""
-           //   } text-xl font-medium cursor-pointer`}
-           // >
-          //  Profile
-          // </Link>
-
             <button
               className="block w-full bg-red-500 text-white rounded-xl text-xl px-4 py-2 hover:bg-red-700 font-medium flex items-center gap-2 cursor-pointer"
               onClick={handleLogout}
